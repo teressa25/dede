@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Sayangku!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0);
+            color: #5a2a4d;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: url('https://i.gifer.com/8B6K.gif') center/cover no-repeat;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .container {
+            max-width: 900px;
+            width: 95%;
+            margin: 20px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.8rem;
+            color: #d64161;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1.2;
+        }
+        
+        h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #d64161;
+            margin: 25px 0 15px;
+            text-align: center;
+            line-height: 1.2;
+        }
+        
+        .hero-image {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 25px;
+            border-radius: 50%;
+            border: 5px solid #ffb6c1;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+            background: linear-gradient(45deg, #ffafbd, #ffc3a0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 0 15px;
+        }
+        
+        .message-highlight {
+            color: #d64161;
+            font-weight: 600;
+            font-style: italic;
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .btn {
+            display: block;
+            width: 200px;
+            margin: 25px auto;
+            padding: 14px 20px;
+            background: linear-gradient(to right, #d64161, #ff6b6b);
+            color: white;
+            text-align: center;
+            border-radius: 50px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(214, 65, 97, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(214, 65, 97, 0.6);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            height: 160px;
+            background: #ffdde1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .memory-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border-left: 5px solid #d64161;
+        }
+        
+        .memory-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #d64161, #ff6b6b);
+        }
+        
+        .memory-date {
+            font-weight: 600;
+            color: #d64161;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .memory-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .wishes {
+            background: rgba(255, 221, 225, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .wishes::before, .wishes::after {
+            content: """;
+            font-family: Georgia, serif;
+            font-size: 4rem;
+            color: #d64161;
+            position: absolute;
+            opacity: 0.3;
+        }
+        
+        .wishes::before {
+            top: 10px;
+            left: 20px;
+        }
+        
+        .wishes::after {
+            bottom: 10px;
+            right: 20px;
+            transform: rotate(180deg);
+        }
+        
+        .wish-text {
+            font-size: 1.15rem;
+            font-style: italic;
+            line-height: 1.8;
+        }
+        
+        .wish-text p {
+            margin-bottom: 15px;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #5a2a4d;
+            border-top: 2px dashed #ffb6c1;
+        }
+        
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.3rem;
+            color: #d64161;
+            margin: 10px 0 15px;
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        .floating-2 {
+            animation: floating 3.5s ease-in-out infinite;
+            animation-delay: 0.5s;
+        }
+        
+        .floating-3 {
+            animation: floating 4s ease-in-out infinite;
+            animation-delay: 1s;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(214, 65, 97, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(214, 65, 97, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(214, 65, 97, 0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .page-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.1;
+            background: url('https://i.gifer.com/embedded/download/7TjX.gif') center/cover no-repeat;
+        }
+        
+        .counter {
+            font-size: 1.1rem;
+            text-align: center;
+            margin: 10px 0 20px;
+            font-weight: 600;
+            color: #d64161;
+        }
+        
+        .photo-frame {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 15px;
+            border: 8px solid white;
+            border-radius: 10px;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            background: #ffdde1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+        
+        .photo-frame:hover {
+            transform: rotate(3deg) scale(1.05);
+            box-shadow: 0 18px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .memory-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .upload-instruction {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 3rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-image {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .message {
+                font-size: 1.1rem;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 12px;
+            }
+            
+            .gallery-item {
+                height: 140px;
+            }
+            
+            .photo-frame {
+                width: 190px;
+                height: 190px;
+            }
+            
+            .btn {
+                width: 180px;
+                padding: 12px 18px;
+                font-size: 1.1rem;
+            }
+            
+            .wish-text {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-image {
+                width: 130px;
+                height: 130px;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .photo-frame {
+                width: 170px;
+                height: 170px;
+            }
+            
+            .signature {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page active" id="page1">
+        <div class="page-bg"></div>
+        <div class="container floating">
+            <div class="header">
+                <div class="hero-image">
+                    <img src="https://i.imgur.com/froxWho.jpeg" alt="Foto pacarmu" id="main-photo">
+                </div>
+                <h1>Selamat Ulang Tahun Sayangku Cintaku Maniskuuu!</h1>
+                <div class="message">
+                    <p>Di hari yang istimewa ini, mas mau ucapin....</p>
+                </div>
+            </div>
+            <div class="counter">Halaman 1/5</div>
+            <button class="btn" onclick="showPage(2)">Buka Kejutan <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+    
+    <div class="page" id="page2">
+        <div class="page-bg"></div>
+        <div class="container floating-2">
+            <div class="header">
+                <h2>For My Honey Sweety</h2>
+                <div class="message">
+                    <p><span class="message-highlight">HAPPY BIRTH DAYYYY🎉🎉 CINTAKUUU💖💖</span>, buat dedeku tersayangg mau gombal dikit nich hehe.</p>
+                    <p>Kau adalah cahaya yang menerangi hari-hariku, pelangi setelah badai, dan alasan terbesar kebahagiaanku.</p>
+                    <p>ANJASSSSS mwuehehehhe.</p>
+                </div>
+            </div>
+            <div class="counter">Halaman 2/5</div>
+            <button class="btn" onclick="showPage(3)">Kenangan Indah <i class="fas fa-heart"></i></button>
+        </div>
+    </div>
+    
+    <div class="page" id="page3">
+        <div class="page-bg"></div>
+        <div class="container floating-3">
+            <h2>Kenangan Bersama Dedeku Tersayangg</h2>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/azNORZP.jpeg" alt="Kenangan 1" class="memory-photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/DYzXmdw.jpeg" alt="Kenangan 2" class="memory-photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/h9uUGS5.jpeg" alt="Kenangan 3" class="memory-photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/I6WAR1D.jpeg" alt="Kenangan 4" class="memory-photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/rUnY6YR.jpeg" alt="Kenangan 5" class="memory-photo">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://i.imgur.com/VNd0rE9.jpeg" alt="Kenangan 6" class="memory-photo">
+                </div>
+            </div>
+            <div class="message">
+                <p>Setiap momen bersama dede, sepersekian detik terasa sangat berharga, mas seneng banget abisin waktu sama dedeku tercintaaa, insyaallah kita bakal terus dapet momen berharga.</p>
+            </div>
+            <div class="counter">Halaman 3/5</div>
+            <button class="btn" onclick="showPage(4)">Pesan Spesial <i class="fas fa-envelope"></i></button>
+        </div>
+    </div>
+    
+    <div class="page" id="page4">
+        <div class="page-bg"></div>
+        <div class="container floating-2">
+            <h2>Pesan Dari Mas</h2>
+            <div class="wishes">
+                <div class="wish-text">
+                    <p>Sayangku cintaku manisku, di hari ulang tahun dede ini, mas berharap semua impian dede menjadi kenyataan. Semoga setiap hari membawa kebahagiaan dan keberhasilan. Terima kasih sudah menjadi wanita hebat dalam hidupku. Jaga kesehatannya sayang yaa, wish u all the best, semoga allah ngasih yang terbaik buat dede.</p>
+                    
+                    <p>Sayangkuu, makasih udah jadi wanita yang selalu kuat dalam keadaan apapun, dede salah satu wanita terhebat yang mas sayangi (ada 3 dede mama nenek), mas tau ga semua yang dede harapin bakal terwujud terkadang takdir berkata lain, mas cuma berharap dede selalu kuat ngadepin segala cobaan dari allah, dede ga sendiri mas ada disini insyaallah mas bakal selalu ada buat dede, jadiin mas rumah ternyaman dede ya cintakuu.</p>
+                    
+                    <p>Ga harus kuat terus sayang, mas tau pasti ada kalanya manusia ngerasa rapuh dan cape juga, its okay sayang itu wajar kok, kalo dede mau ngeluh mau cerita apapun mau ngadu apa aja dede bisa ngadu ke mas sayangku, mas selalu disini sayang. Tapi janji sama mas abis sedih dede harus balik happy lagi yaa kan ada mas hehe, mas sayang banget banget sama dede.</p>
+                </div>
+            </div>
+            
+            <div class="memory-grid">
+                <div class="memory-card">
+                    <div class="memory-date">Pertama Kali Bertemu</div>
+                    <div class="memory-text">Pertama kali ketemu dede, mas ga nyangka dede bakal jadi bagian terbesar dalam hidup mas, awalnya mas kira hanya pertemuan biasa yang akan berakhir nantinya, tapi ternyata dede jadi tujuan mas sekarang, jadi segala alasan apa yang bakal mas lakuin juga, tetep sama mas terus ya sayangkuu, maafin mas kalo mas masih banyak salah dan sering buat dede nangis. Sama mas terus ya sayangkuu.</div>
+                </div>
+                
+                <div class="memory-card">
+                    <div class="memory-date">Harapan Mas Buat Dede</div>
+                    <div class="memory-text">Mas selalu berdoa yang terbaik buat dedeku tersayang ini, mas harap dede selalu kuat dalam keadaan apapun, cape boleh tapi harus bangkit lagi ya cintaku, mas harap semakin bertambah umur dede semakin paham gimana dunia bekerja, jadi anak yang berbakti sama kedua orang tua, dan jadi hamba yang selalu ingat sama allah, makin rajin ibadahnya dan selalu berdoa sama allah agar dilancarin semuanya, jangan lupa juga NURUTTTTT KALO DIBILANGIN.</div>
+                </div>
+            </div>
+            
+            <div class="counter">Halaman 4/5</div>
+            <button class="btn" onclick="showPage(5)">Halaman Terakhir <i class="fas fa-star"></i></button>
+        </div>
+    </div>
+    
+    <div class="page" id="page5">
+        <div class="page-bg"></div>
+        <div class="container floating">
+            <div class="header">
+                <h2>Selamat Ulang Tahun!</h2>
+                <div class="photo-frame">
+                    <img src="https://i.imgur.com/KBRzMBn.jpeg" alt="Foto kita" id="couple-photo">
+                </div>
+                <div class="message">
+                    <p>Di hari ulang tahun dede ini mas mau bilang, mas ada disini dan dede itu tujuan mas, jadi jangan ngerasa sendiri ya cintaku.</p>
+                    <p><span class="message-highlight">Selamat ulang tahun sayang!</span> Semoga tahun ini membawa lebih banyak kebahagiaan, kesuksesan, dan selalu sehat dalam keadaan apapun.</p>
+                </div>
+            </div>
+            
+            <div class="wishes">
+                <p class="wish-text">"Mas tetap disini buat dedeku tersayangg💖💖💖"</p>
+            </div>
+            
+            <div class="footer">
+                <p>Love for u,</p>
+                <div class="signature">MAS EJAA</div>
+                <p class="counter">Halaman 5/5</p>
+                <button class="btn" onclick="showPage(1)"><i class="fas fa-redo"></i> Lihat Lagi</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Membuat efek hati jatuh
+        function createHearts() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.width = Math.random() * 25 + 10 + 'px';
+            heart.style.height = heart.style.width;
+            heart.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        setInterval(createHearts, 300);
+        
+        // Navigasi halaman
+        function showPage(pageNumber) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById('page' + pageNumber).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+        
+        // Efek ketik untuk pesan spesial
+        const wishText = document.querySelector('.wish-text');
+        const originalText = wishText.textContent;
+        wishText.textContent = '';
+        let charIndex = 0;
+        
+        function typeEffect() {
+            if (charIndex < originalText.length) {
+                wishText.textContent += originalText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeEffect, 50);
+            }
+        }
+        
+        // Memulai efek ketik di halaman 4
+        document.querySelector('.btn[onclick="showPage(4)"]').addEventListener('click', () => {
+            setTimeout(typeEffect, 1000);
+        });
+        
+        // Musik latar
+        window.addEventListener('click', () => {
+            const audio = new Audio('https://file.io/abcd1234efgh/my-love-mine-all-mine.mp3');
+            audio.loop = true;
+            audio.volume = 0.3;
+            audio.play();
+        }, { once: true });
+    </script>
+</body>
+</html>
